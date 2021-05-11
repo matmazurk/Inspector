@@ -56,4 +56,8 @@ dependencies {
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Klaxon
+    implementation "com.beust:klaxon:$klaxon_version"
+
 }
