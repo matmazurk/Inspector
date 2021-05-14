@@ -2,6 +2,8 @@ package com.mat.inspector
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
