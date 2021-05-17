@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Inspector</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="configuration">config</string>
+    <string name="refresh">refresh</string>
+    <string name="connection_status">connection status</string>
+    <string name="load">load</string>
+    <string name="cancel">cancel</string>
+    <string name="ip_address">IP Address</string>
+    <string name="save">save</string>
 </resources>
