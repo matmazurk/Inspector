@@ -33,7 +33,6 @@ class ConfigurationDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireActivity()
         val configuration = viewModel.getConfiguration(context)
-        Log.i("configuration", configuration.toString())
         binding.rvConfiguration.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = ConfigurationAdapter(configuration)
@@ -47,7 +46,8 @@ class ConfigurationDialog : DialogFragment() {
 
     private fun setButtonListeners() {
         binding.btAccept.setOnClickListener {
-
+            viewModel.updateAddress(requireActivity(), binding.tietIpAddr.text.toString())
+            dismiss()
         }
         binding.btCancel.setOnClickListener {
             dismiss()

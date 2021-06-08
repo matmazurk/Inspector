@@ -1,12 +1,14 @@
 package com.mat.inspector
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.gson.stream.JsonReader
-import java.io.File
+import java.net.Inet4Address
+import java.net.InetAddress
+
 
 class ConfigurationViewModel(
     private val fileHandler: FileHandler,
@@ -36,6 +38,12 @@ class ConfigurationViewModel(
             Log.i("config", "empty")
         }
         return config
+    }
+
+    fun updateAddress(context: Context, newAddress: String): Boolean {
+        val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
+        config = config.copy(serverAddress = InetAddress.getByName(newAddress))
+        return fileHandler.createNewFile(configFilePath, gson.toJson(config))
     }
 
     companion object {

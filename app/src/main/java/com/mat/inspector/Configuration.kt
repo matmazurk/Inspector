@@ -8,7 +8,8 @@ import java.net.Inet4Address
 import java.net.InetAddress
 
 data class Configuration(
-    val serverAddress: InetAddress = Inet4Address.getByName("192.168.0.1"),
+    val serverAddress: InetAddress = Inet4Address.getByName("192.168.0.56"),
+    val port: Int = 17825,
     val readables: List<Readable> = emptyList(),
     val writables: List<Writable> = emptyList(),
     val charts: List<Chart> = emptyList(),

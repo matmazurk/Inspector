@@ -24,7 +24,7 @@ class ConfigurationAdapter(private val config: Configuration) : RecyclerView.Ada
                 val configItem = config.readables[position]
                 holder.apply {
                     name.text = configItem.name
-                    address.text = configItem.address.toString()
+                    address.text = configItem.address
                     type.text = configItem.type.toString()
                 }
             }
