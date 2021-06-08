@@ -8,6 +8,7 @@ import java.io.File
 val viewModelsModule = module {
 
     viewModel { ConfigurationViewModel(get<FileRepository>(), Gson()) }
+    viewModel { WritablesViewModel() }
 }
 
 val repositoriesModule = module {
