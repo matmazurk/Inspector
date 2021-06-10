@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
     private val connectionAvailable: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     private val configurationViewModel: ConfigurationViewModel by sharedViewModel()
     private val slidingFragments: List<Pair<String, () -> Fragment>> = listOf(
-//        getString() to { Fragment() },
+        "Params" to { ParametersFragment() },
     )
 
     override fun onCreateView(
@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
         binding.btConfiguration.setOnClickListener {
             ConfigurationDialog().show(childFragmentManager, "configuration dialog")
         }
+        binding.pager.adapter = PagerAdapter(this)
         return binding.root
     }
 
@@ -71,7 +72,7 @@ class HomeFragment : Fragment() {
 
     private fun startConfigurationChangeMonitoring(context: Context) {
         stopConfigurationChangesMonitoring()
-        Log.i("home fragment", "creating configuration change monitoring job")
+        info("creating configuration change monitoring job")
         configurationChangeJob = lifecycleScope.launch(Dispatchers.IO) {
             while(isActive) {
                 configurationViewModel.reloadConfiguration(context)
@@ -83,7 +84,7 @@ class HomeFragment : Fragment() {
     private fun stopConfigurationChangesMonitoring() {
         if(this::configurationChangeJob.isInitialized) {
             if(configurationChangeJob.isActive) {
-                Log.i("home fragment", "killing configuration monitoring job")
+                info("killing configuration monitoring job")
                 configurationChangeJob.cancel()
             }
         }
@@ -91,7 +92,7 @@ class HomeFragment : Fragment() {
 
     private fun startConnectionMonitoring(address: InetAddress) {
         stopConnectionMonitoring()
-        Log.i("home fragment", "creating connection monitoring job")
+        info("creating connection monitoring job")
         connectionJob = lifecycleScope.launch(Dispatchers.IO) {
             while(isActive) {
                 if(address.isReachable(CONNECTION_MONITORING_DELAY_MS.toInt())) {
@@ -108,10 +109,14 @@ class HomeFragment : Fragment() {
     private fun stopConnectionMonitoring() {
         if(this::connectionJob.isInitialized) {
             if(connectionJob.isActive) {
-                Log.i("home fragment", "killing connection monitoring job")
+                info("killing connection monitoring job")
                 connectionJob.cancel()
             }
         }
+    }
+
+    private fun info(msg: String) {
+        Log.i(TAG, msg)
     }
 
     private inner class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -122,6 +127,7 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
+        const val TAG = "HOME FRAGMENT"
         const val CONNECTION_MONITORING_DELAY_MS=1000L
         const val CONFIGURATION_CHANGE_MONITORING_DELAY_MS=120_000L
     }

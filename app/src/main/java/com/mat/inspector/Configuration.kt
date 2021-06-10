@@ -1,17 +1,18 @@
 package com.mat.inspector
 
-import android.content.Context
-import com.google.gson.Gson
-import com.google.gson.stream.JsonReader
-import java.io.File
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.JsonParseException
+import com.google.gson.annotations.JsonAdapter
+import java.lang.reflect.Type
 import java.net.Inet4Address
 import java.net.InetAddress
 
 data class Configuration(
     val serverAddress: InetAddress = Inet4Address.getByName("192.168.0.56"),
     val port: Int = 17825,
-    val readables: List<Readable> = emptyList(),
-    val writables: List<Writable> = emptyList(),
+    val parameters: List<Parameter> = emptyList(),
     val charts: List<Chart> = emptyList(),
 ) {
     enum class Type {
@@ -19,22 +20,34 @@ data class Configuration(
         DOUBLE
     }
 
-    data class Readable(
+    data class Parameter(
         val name: String,
-        val address: String,
+        val address: Int,
         val type: Type,
-    )
-
-    data class Writable(
-        val name: String,
-        val address: String,
-        val type: Type,
-        val min: Double,
-        val max: Double,
+        @JsonAdapter(EmptyStringAsNullTypeAdapter::class)
+        val min: Double?,
+        @JsonAdapter(EmptyStringAsNullTypeAdapter::class)
+        val max: Double?,
     )
 
     data class Chart(
         val name: String,
         val data: List<Pair<Int, String>>
     )
+
+    class EmptyStringAsNullTypeAdapter<T> private constructor() : JsonDeserializer<T> {
+        override fun deserialize(
+            jsonElement: JsonElement,
+            type: java.lang.reflect.Type?,
+            context: JsonDeserializationContext?
+        ): T? {
+            if (jsonElement.isJsonPrimitive) {
+                val jsonPrimitive = jsonElement.asJsonPrimitive
+                if (jsonPrimitive.isString && jsonPrimitive.asString.isEmpty()) {
+                    return null
+                }
+            }
+            return context?.deserialize(jsonElement, type)
+        }
+    }
 }
