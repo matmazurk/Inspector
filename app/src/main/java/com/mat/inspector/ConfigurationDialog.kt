@@ -32,7 +32,7 @@ class ConfigurationDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireActivity()
-        val configuration = viewModel.getConfiguration(context)
+        val configuration = viewModel.configuration
         binding.rvConfiguration.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = ConfigurationAdapter(configuration)

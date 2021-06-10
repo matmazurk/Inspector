@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class WritablesFragment : Fragment() {
 
     private lateinit var binding: FragmentWritablesBinding
+    private val adapter: WritablesAdapter = WritablesAdapter()
     private val writablesViewModel: WritablesViewModel by viewModel()
     private val configurationViewModel: ConfigurationViewModel by sharedViewModel()
 
@@ -20,6 +21,7 @@ class WritablesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentWritablesBinding.inflate(inflater, container, false)
+        binding.rvWritables.adapter = adapter
         return binding.root
     }
 

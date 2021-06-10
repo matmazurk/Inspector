@@ -1,5 +1,6 @@
 package com.mat.inspector
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var connectionJob: Job
+    private lateinit var configurationChangeJob: Job
     private val connectionAvailable: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     private val configurationViewModel: ConfigurationViewModel by sharedViewModel()
     private val slidingFragments: List<Pair<String, () -> Fragment>> = listOf(
@@ -34,6 +36,10 @@ class HomeFragment : Fragment() {
         binding.btConfiguration.setOnClickListener {
             ConfigurationDialog().show(childFragmentManager, "configuration dialog")
         }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         connectionAvailable.observe(viewLifecycleOwner) { available ->
             if(available) {
                 binding.ivConnectionStatus.setImageResource(R.drawable.ic_green_light)
@@ -41,30 +47,59 @@ class HomeFragment : Fragment() {
                 binding.ivConnectionStatus.setImageResource(R.drawable.ic_red_light)
             }
         }
-        return binding.root
+        configurationViewModel.configurationLiveData.observe(viewLifecycleOwner) { newConfig ->
+            if(this::connectionJob.isInitialized) {
+                if(connectionJob.isActive) {
+                    startConnectionMonitoring(newConfig.serverAddress)
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        val config = configurationViewModel.getConfiguration(requireActivity())
+        val config = configurationViewModel.configuration
         startConnectionMonitoring(config.serverAddress)
+        startConfigurationChangeMonitoring(requireActivity())
     }
 
     override fun onPause() {
         stopConnectionMonitoring()
+        stopConfigurationChangesMonitoring()
         super.onPause()
     }
 
+    private fun startConfigurationChangeMonitoring(context: Context) {
+        stopConfigurationChangesMonitoring()
+        Log.i("home fragment", "creating configuration change monitoring job")
+        configurationChangeJob = lifecycleScope.launch(Dispatchers.IO) {
+            while(isActive) {
+                configurationViewModel.reloadConfiguration(context)
+                delay(CONFIGURATION_CHANGE_MONITORING_DELAY_MS)
+            }
+        }
+    }
+
+    private fun stopConfigurationChangesMonitoring() {
+        if(this::configurationChangeJob.isInitialized) {
+            if(configurationChangeJob.isActive) {
+                Log.i("home fragment", "killing configuration monitoring job")
+                configurationChangeJob.cancel()
+            }
+        }
+    }
+
     private fun startConnectionMonitoring(address: InetAddress) {
+        stopConnectionMonitoring()
         Log.i("home fragment", "creating connection monitoring job")
         connectionJob = lifecycleScope.launch(Dispatchers.IO) {
             while(isActive) {
-                if(address.isReachable(1000)) {
+                if(address.isReachable(CONNECTION_MONITORING_DELAY_MS.toInt())) {
                     connectionAvailable.postValue(true)
+                    delay(CONNECTION_MONITORING_DELAY_MS)
                 } else {
                     connectionAvailable.postValue(false)
                 }
-                delay(1000)
             }
         }
 
@@ -84,6 +119,11 @@ class HomeFragment : Fragment() {
         override fun getItemCount() = slidingFragments.size
 
         override fun createFragment(position: Int) = slidingFragments[position].second.invoke()
+    }
+
+    companion object {
+        const val CONNECTION_MONITORING_DELAY_MS=1000L
+        const val CONFIGURATION_CHANGE_MONITORING_DELAY_MS=120_000L
     }
 
 }

@@ -5,9 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class WritablesAdapter(
-    private val data: List<Configuration.Writable>
-) : RecyclerView.Adapter<WritablesAdapter.ViewHolder>() {
+class WritablesAdapter : RecyclerView.Adapter<WritablesAdapter.ViewHolder>() {
+
+    private var data: List<Configuration.Writable> = emptyList()
+
+    fun setData(data: List<Configuration.Writable>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_writables_item, parent, false)
