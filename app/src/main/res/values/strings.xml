@@ -8,4 +8,11 @@
     <string name="cancel">cancel</string>
     <string name="ip_address">IP Address</string>
     <string name="save">save</string>
+    <string name="port">port</string>
+    <string name="type">Type:</string>
+    <string name="writable">Writable</string>
+    <string name="min">min</string>
+    <string name="max">max</string>
+    <string name="name">name</string>
+    <string name="address">address</string>
 </resources>

@@ -28,8 +28,10 @@ class ParametersAdapter : RecyclerView.Adapter<ParametersAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val parameter = data[position].parameter
         val value = data[position].value
-        if (parameter.max != 0.0 && parameter.min != 0.0) {
+        if (parameter.max != null && parameter.min != null) {
             //fade layout
+            holder.paramName.textSize = 30f
+            holder.layout.isClickable = true
         }
         holder.paramName.text = parameter.name
         holder.paramType.text = parameter.type.toString()

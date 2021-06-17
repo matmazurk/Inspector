@@ -6,15 +6,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.stream.JsonReader
 import java.net.InetAddress
 
 
 class ConfigurationViewModel(
     private val fileHandler: FileHandler,
-    private val gson: Gson,
 ) : ViewModel() {
 
+    private val gson: Gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
     private var configFileMD5: String? = null
     var configuration: Configuration = Configuration()
         private set
@@ -30,14 +31,15 @@ class ConfigurationViewModel(
         }
         configFileMD5 = currentMD5
         val configFileContent = fileHandler.getFileContent(configFilePath)
+
         if (configFileContent != null) {
             val jsonReader = JsonReader(configFileContent.reader())
             changeConfiguration(gson.fromJson(jsonReader, Configuration::class.java))
             Log.i("config", "from file")
         } else {
             val jsonConfig = gson.toJson(configuration)
+            Log.i("config before save", configuration.toString())
             fileHandler.createNewFile(configFilePath, jsonConfig)
-            Log.i("config", "empty")
         }
         return
     }
@@ -45,6 +47,28 @@ class ConfigurationViewModel(
     fun updateAddress(context: Context, newAddress: String): Boolean {
         val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
         changeConfiguration(configuration.copy(serverAddress = InetAddress.getByName(newAddress)))
+        return fileHandler.createNewFile(configFilePath, gson.toJson(configuration))
+    }
+
+    fun updatePort(context: Context, newPort: Int): Boolean {
+        val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
+        changeConfiguration(configuration.copy(port = newPort))
+        return fileHandler.createNewFile(configFilePath, gson.toJson(configuration))
+    }
+
+    fun addParameter(context: Context, parameter: Configuration.Parameter): Boolean {
+        val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
+        val parameters = configuration.parameters.toMutableList()
+        parameters.add(parameter)
+        changeConfiguration(configuration.copy(parameters = parameters))
+        return fileHandler.createNewFile(configFilePath, gson.toJson(configuration))
+    }
+
+    fun addChart(context: Context, chart: Configuration.Chart): Boolean {
+        val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
+        val charts = configuration.charts.toMutableList()
+        charts.add(chart)
+        changeConfiguration(configuration.copy(charts = charts))
         return fileHandler.createNewFile(configFilePath, gson.toJson(configuration))
     }
 

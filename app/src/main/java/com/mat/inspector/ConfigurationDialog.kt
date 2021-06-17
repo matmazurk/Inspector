@@ -1,16 +1,10 @@
 package com.mat.inspector
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mat.inspector.databinding.DialogConfigurationBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -31,13 +25,9 @@ class ConfigurationDialog : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val context = requireActivity()
         val configuration = viewModel.configuration
-        binding.rvConfiguration.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = ConfigurationAdapter(configuration)
-        }
         binding.tietIpAddr.setText(configuration.serverAddress.hostAddress)
+        binding.tietPort.setText(configuration.port.toString())
     }
 
     private fun configureLayout() {
@@ -47,6 +37,7 @@ class ConfigurationDialog : DialogFragment() {
     private fun setButtonListeners() {
         binding.btAccept.setOnClickListener {
             viewModel.updateAddress(requireActivity(), binding.tietIpAddr.text.toString())
+            viewModel.updatePort(requireActivity(), binding.tietPort.text.toString().toInt())
             dismiss()
         }
         binding.btCancel.setOnClickListener {

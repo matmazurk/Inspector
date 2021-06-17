@@ -6,7 +6,7 @@ import org.koin.dsl.module
 
 val viewModelsModule = module {
 
-    viewModel { ConfigurationViewModel(get<FileRepository>(), Gson()) }
+    viewModel { ConfigurationViewModel(get<FileRepository>()) }
     viewModel { ParametersViewModel(get()) }
 }
 

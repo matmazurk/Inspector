@@ -24,9 +24,7 @@ data class Configuration(
         val name: String,
         val address: Int,
         val type: Type,
-        @JsonAdapter(EmptyStringAsNullTypeAdapter::class)
         val min: Double?,
-        @JsonAdapter(EmptyStringAsNullTypeAdapter::class)
         val max: Double?,
     )
 
@@ -34,20 +32,4 @@ data class Configuration(
         val name: String,
         val data: List<Pair<Int, String>>
     )
-
-    class EmptyStringAsNullTypeAdapter<T> private constructor() : JsonDeserializer<T> {
-        override fun deserialize(
-            jsonElement: JsonElement,
-            type: java.lang.reflect.Type?,
-            context: JsonDeserializationContext?
-        ): T? {
-            if (jsonElement.isJsonPrimitive) {
-                val jsonPrimitive = jsonElement.asJsonPrimitive
-                if (jsonPrimitive.isString && jsonPrimitive.asString.isEmpty()) {
-                    return null
-                }
-            }
-            return context?.deserialize(jsonElement, type)
-        }
-    }
 }

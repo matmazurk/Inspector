@@ -8,14 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mat.inspector.databinding.FragmentWritablesBinding
+import com.mat.inspector.databinding.FragmentParametersBinding
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.IOException
 import java.net.InetAddress
+import java.net.InetSocketAddress
+import java.net.Socket
 
 class ParametersFragment : Fragment() {
-    private lateinit var binding: FragmentWritablesBinding
+    private lateinit var binding: FragmentParametersBinding
     private lateinit var valuesChangeWatcher: Job
     private val adapter: ParametersAdapter = ParametersAdapter()
     private val parametersViewModel: ParametersViewModel by viewModel()
@@ -25,9 +28,9 @@ class ParametersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentWritablesBinding.inflate(inflater, container, false)
-        binding.rvWritables.adapter = adapter
-        binding.rvWritables.layoutManager = LinearLayoutManager(requireActivity())
+        binding = FragmentParametersBinding.inflate(inflater, container, false)
+        binding.rvParameters.adapter = adapter
+        binding.rvParameters.layoutManager = LinearLayoutManager(requireActivity())
         return binding.root
     }
 
@@ -45,6 +48,9 @@ class ParametersFragment : Fragment() {
         }
         parametersViewModel.itemsToShow.observe(viewLifecycleOwner) { items ->
             adapter.setData(items)
+        }
+        binding.fabParametersAdd.setOnClickListener {
+            NewParameterDialog().show(childFragmentManager, "np dialog")
         }
     }
 
