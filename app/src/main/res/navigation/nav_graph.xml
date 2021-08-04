@@ -7,6 +7,24 @@
     <fragment
         android:id="@+id/connectionFragment"
         android:name="com.mat.inspector.HomeFragment"
-        android:label="fragment_connection"
-        tools:layout="@layout/fragment_home" />
+        android:label="fragment_connection">
+        <action
+            android:id="@+id/action_connectionFragment_to_chartDetailsFragment"
+            app:destination="@id/chartDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chartDetailsFragment"
+        android:name="com.mat.inspector.ChartDetailsFragment"
+        android:label="fragment_chart_details"
+        tools:layout="@layout/fragment_chart_details" >
+        <action
+            android:id="@+id/action_chartDetailsFragment_to_connectionFragment"
+            app:destination="@id/connectionFragment" />
+        <argument
+            android:name="chart_id"
+            app:argType="integer" />
+        <argument
+            android:name="chart_name"
+            app:argType="string" />
+    </fragment>
 </navigation>

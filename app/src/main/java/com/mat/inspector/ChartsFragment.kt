@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mat.inspector.databinding.FragmentChartsBinding
@@ -49,7 +50,8 @@ class ChartsFragment : Fragment() {
             Toast.makeText(requireActivity(), getString(R.string.charts_loaded), Toast.LENGTH_SHORT).show()
         }
         adapter.clickedItem.observe(viewLifecycleOwner) {
-
+            val action = HomeFragmentDirections.actionConnectionFragmentToChartDetailsFragment(it.id, it.name)
+            findNavController().navigate(action)
         }
     }
 
