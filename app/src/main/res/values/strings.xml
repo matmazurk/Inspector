@@ -15,4 +15,11 @@
     <string name="max">max</string>
     <string name="name">name</string>
     <string name="address">address</string>
+    <string name="write">write</string>
+    <string name="give_new_value">Give new value</string>
+    <string name="charts_loaded">charts loaded</string>
+    <string name="chart_number">chart number</string>
+    <string name="wrong_id">wrong id</string>
+    <string name="chart_name_empty">chart name is empty</string>
+    <string name="empty_value">empty value</string>
 </resources>

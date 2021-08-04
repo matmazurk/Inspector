@@ -39,6 +39,14 @@ class ParametersViewModel(
         _itemsToShow.postValue(fetchValuesForParams(parameters, serverAddress, port))
     }
 
+    fun writeDouble(serverAddress: InetAddress, port: Int, offset: Int, value: Double) = viewModelScope.launch(Dispatchers.IO) {
+        repository.writeDoubleParameter(serverAddress, port, offset, value)
+    }
+
+    fun writeUint(serverAddress: InetAddress, port: Int, offset: Int, value: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.writeUnsignedParameter(serverAddress, port, offset, value)
+    }
+
     private fun fetchValuesForParams(
         params: List<Configuration.Parameter>,
         serverAddress: InetAddress,

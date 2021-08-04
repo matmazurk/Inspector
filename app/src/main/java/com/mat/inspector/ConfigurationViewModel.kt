@@ -67,7 +67,9 @@ class ConfigurationViewModel(
     fun addChart(context: Context, chart: Configuration.Chart): Boolean {
         val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
         val charts = configuration.charts.toMutableList()
+        Log.i("charts before", charts.toString())
         charts.add(chart)
+        Log.i("charts after", charts.toString())
         changeConfiguration(configuration.copy(charts = charts))
         return fileHandler.createNewFile(configFilePath, gson.toJson(configuration))
     }

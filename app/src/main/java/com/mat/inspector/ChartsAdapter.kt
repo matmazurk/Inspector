@@ -10,11 +10,11 @@ import com.google.android.material.textview.MaterialTextView
 
 class ChartsAdapter : RecyclerView.Adapter<ChartsAdapter.ViewHolder>() {
 
-    private val _clickedItem: MutableLiveData<ChartsViewModel.ChartWithData> = MutableLiveData()
-    val clickedItem: LiveData<ChartsViewModel.ChartWithData> = _clickedItem
-    private var data: List<ChartsViewModel.ChartWithData> = emptyList()
+    private val _clickedItem: MutableLiveData<Configuration.Chart> = MutableLiveData()
+    val clickedItem: LiveData<Configuration.Chart> = _clickedItem
+    private var data: List<Configuration.Chart> = emptyList()
 
-    fun setData(data: List<ChartsViewModel.ChartWithData>) {
+    fun setData(data: List<Configuration.Chart>) {
         this.data = data
     }
 
@@ -25,7 +25,7 @@ class ChartsAdapter : RecyclerView.Adapter<ChartsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.name.text = item.chart.name
+        holder.name.text = item.name
         holder.name.setOnClickListener {
             _clickedItem.postValue(item)
         }

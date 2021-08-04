@@ -68,4 +68,6 @@ dependencies {
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    implementation 'com.afollestad.material-dialogs:input:3.3.0'
+    implementation 'org.apache.commons:commons-math3:3.5'
 }

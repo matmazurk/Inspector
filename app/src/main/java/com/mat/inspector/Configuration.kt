@@ -26,10 +26,12 @@ data class Configuration(
         val type: Type,
         val min: Double?,
         val max: Double?,
-    )
+    ) {
+        fun isWritable() = min != null && max != null
+    }
 
     data class Chart(
         val name: String,
-        val data: List<Pair<Int, String>>
+        val id: Int
     )
 }
