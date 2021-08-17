@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/chartDetailsFragment"
-        android:name="com.mat.inspector.ChartDetailsFragment"
+        android:name="com.mat.inspector.ChartPlotFragment"
         android:label="fragment_chart_details"
         tools:layout="@layout/fragment_chart_details" >
         <action

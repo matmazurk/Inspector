@@ -11,9 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mat.inspector.databinding.FragmentChartDetailsBinding
 
-class ChartDetailsFragment : Fragment() {
+class ChartPlotFragment : Fragment() {
 
-    val args: ChartDetailsFragmentArgs by navArgs()
+    val args: ChartPlotFragmentArgs by navArgs()
     private lateinit var binding: FragmentChartDetailsBinding
 
     override fun onCreateView(
@@ -27,7 +27,7 @@ class ChartDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val callback = object: OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                findNavController().navigate(ChartDetailsFragmentDirections.actionChartDetailsFragmentToConnectionFragment())
+                findNavController().navigate(ChartPlotFragmentDirections.actionChartDetailsFragmentToConnectionFragment())
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback);
