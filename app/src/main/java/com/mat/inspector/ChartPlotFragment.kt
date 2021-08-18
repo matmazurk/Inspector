@@ -31,7 +31,7 @@ class ChartPlotFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback);
-        val data = Connector.getData()[args.chartId]
+        val data = Connector.getData()[args.chartId].toDoubleArray()
         val rms = rms(data)
         binding.mtvRms.text = rms.toString()
     }

@@ -21,4 +21,10 @@ class SignalAnalysisTest {
     private fun inMargin(expected: Double, actual: Double): Boolean {
         return expected * 1.05 > actual && actual > expected * 0.95
     }
+
+    @Test
+    fun `test effective value`() {
+        val samples = doubleArrayOf(0.0,0.5577,1.025,1.3262,1.4124,1.2697,0.92118,0.42336,-0.14307,-0.68632,-1.1183,-1.3691,-1.3979,-1.2002,-0.8079,-0.28468,0.28468,0.8079,1.2002,1.3979,1.3691,1.1183,0.68632,0.14307,-0.42336,-0.92118,-1.2697,-1.4124,-1.3262,-1.025,-0.5577,-6.9276e-16)
+        assert(inMargin(1.0, effectiveValue(samples)))
+    }
 }

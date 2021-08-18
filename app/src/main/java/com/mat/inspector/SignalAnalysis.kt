@@ -17,7 +17,7 @@ data class SigData(
     val frequency: Double,
 )
 
-fun rms(points: List<Double>): Double {
+fun rms(points: DoubleArray): Double {
     val squares = points.map {
         it * it
     }
@@ -40,5 +40,9 @@ fun getSignalData(samples: DoubleArray, samplingFrequency: Double): SigData {
     val index = amps.indexOf(amplitude)
     val freq = index * freqBinSpace
     return SigData(amplitude, freq)
+}
+
+fun effectiveValue(vals: DoubleArray): Double {
+    return sqrt(rms(vals))
 }
 
