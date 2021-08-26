@@ -47,6 +47,7 @@ class ChartsFragment : Fragment() {
             adapter.setData(it.charts)
         }
         viewModel.chartsLoaded.observe(viewLifecycleOwner) {
+            binding.fabChartsStats.visibility = View.VISIBLE
             Toast.makeText(requireActivity(), getString(R.string.charts_loaded), Toast.LENGTH_SHORT).show()
         }
         adapter.clickedItem.observe(viewLifecycleOwner) {

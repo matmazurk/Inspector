@@ -22,4 +22,24 @@
     <string name="wrong_id">wrong id</string>
     <string name="chart_name_empty">chart name is empty</string>
     <string name="empty_value">empty value</string>
+    <string name="ua">Ua</string>
+    <string name="ub">Ub</string>
+    <string name="uc">Uc</string>
+    <string name="rms">RMS</string>
+    <string name="ia">Ia</string>
+    <string name="iaobc">Iaobc</string>
+    <string name="ibobc">Ibobc</string>
+    <string name="icobc">Icobc</string>
+    <string name="ianet">Ianet</string>
+    <string name="ibnet">Ibnet</string>
+    <string name="icnet">Icnet</string>
+    <string name="frequency">Frequency</string>
+    <string name="thd">THD</string>
+    <string name="asymmetry">Asymmetry</string>
+    <string name="max_value">Max Value</string>
+    <string name="power">Power</string>
+    <string name="effective_value">Effective Value</string>
+    <string name="active_power">Active power</string>
+    <string name="reactive_power">Reactive power</string>
+    <string name="apparent_power">Apparent power</string>
 </resources>
