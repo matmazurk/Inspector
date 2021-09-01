@@ -1,5 +1,6 @@
 package com.mat.inspector
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,99 +34,100 @@ class SignalAnalysisFragment : Fragment() {
         binding.layoutSignalData.visibility = View.VISIBLE
     }
 
+    @SuppressLint("SetTextI18n")
     private fun loadStuff() {
-        val fs = 10.0
-        val harmonicsCnt = 20
+        val fs = 14_000.0
+        val harmonicsCnt = 10
         val data = Connector.getData()
 
-        val Ua = data[1].toDoubleArray()
+        val Ua = data[0].toDoubleArray()
         val Uafft = fft(Ua)
         val Uasd = getSignalData(fs, Uafft)
 
-        val Ub = data[2].toDoubleArray()
+        val Ub = data[1].toDoubleArray()
         val Ubfft = fft(Ub)
         val Ubsd = getSignalData(fs, Ubfft)
 
-        val Uc = data[3].toDoubleArray()
+        val Uc = data[2].toDoubleArray()
         val Ucfft = fft(Uc)
         val Ucsd = getSignalData(fs, Ucfft)
 
-        val IobcA = data[4].toDoubleArray()
+        val IobcA = data[3].toDoubleArray()
         val IobcAfft = fft(IobcA)
         val IobcAsd = getSignalData(fs, IobcAfft)
 
-        val IobcB = data[5].toDoubleArray()
+        val IobcB = data[4].toDoubleArray()
         val IobcBfft = fft(IobcB)
         val IobcBsd = getSignalData(fs, IobcBfft)
 
-        val IobcC = data[6].toDoubleArray()
+        val IobcC = data[5].toDoubleArray()
         val IobcCfft = fft(IobcC)
         val IobcCsd = getSignalData(fs, IobcCfft)
 
-        val InetA = data[7].toDoubleArray()
+        val InetA = data[6].toDoubleArray()
         val InetAfft = fft(InetA)
         val InetAsd = getSignalData(fs, InetAfft)
 
-        val InetB = data[8].toDoubleArray()
+        val InetB = data[7].toDoubleArray()
         val InetBfft = fft(InetB)
         val InetBsd = getSignalData(fs, InetBfft)
 
-        val InetC = data[9].toDoubleArray()
+        val InetC = data[8].toDoubleArray()
         val InetCfft = fft(InetC)
         val InetCsd = getSignalData(fs, InetCfft)
 
         // RMS
-        binding.mtvUaRms.text = rms(Ua).toString()
-        binding.mtvUbRms.text = rms(Ub).toString()
-        binding.mtvUcRms.text = rms(Uc).toString()
+        binding.mtvUaRms.text = "%.2f".format(rms(Ua))
+        binding.mtvUbRms.text = "%.2f".format(rms(Ub))
+        binding.mtvUcRms.text = "%.2f".format(rms(Uc))
 
-        binding.mtvIaobcRms.text = rms(IobcA).toString()
-        binding.mtvIbobcRms.text = rms(IobcB).toString()
-        binding.mtvIcobcRms.text = rms(IobcC).toString()
+        binding.mtvIaobcRms.text = "%.2f".format(rms(IobcA))
+        binding.mtvIbobcRms.text = "%.2f".format(rms(IobcB))
+        binding.mtvIcobcRms.text = "%.2f".format(rms(IobcC))
 
-        binding.mtvIanetRms.text = rms(InetA).toString()
-        binding.mtvIbnetRms.text = rms(InetB).toString()
-        binding.mtvIcnetRms.text = rms(InetC).toString()
+        binding.mtvIanetRms.text = "%.2f".format(rms(InetA))
+        binding.mtvIbnetRms.text = "%.2f".format(rms(InetB))
+        binding.mtvIcnetRms.text = "%.2f".format(rms(InetC))
 
         // FREQUENCY
-        binding.mtvUaFreq.text = Uasd.frequency.toString()
-        binding.mtvUbFreq.text = Ubsd.frequency.toString()
-        binding.mtvUcFreq.text = Ucsd.frequency.toString()
+        binding.mtvUaFreq.text = "%.2f".format(Uasd.frequency)
+        binding.mtvUbFreq.text = "%.2f".format(Ubsd.frequency)
+        binding.mtvUcFreq.text = "%.2f".format(Ucsd.frequency)
 
-        binding.mtvIaobcFreq.text = IobcAsd.frequency.toString()
-        binding.mtvIbobcFreq.text = IobcBsd.frequency.toString()
-        binding.mtvIbobcFreq.text = IobcCsd.frequency.toString()
+        binding.mtvIaobcFreq.text = "%.2f".format(IobcAsd.frequency)
+        binding.mtvIbobcFreq.text = "%.2f".format(IobcBsd.frequency)
+        binding.mtvIcobcFreq.text = "%.2f".format(IobcCsd.frequency)
 
-        binding.mtvIanetFreq.text = InetAsd.frequency.toString()
-        binding.mtvIbnetFreq.text = InetBsd.frequency.toString()
-        binding.mtvIcnetFreq.text = InetCsd.frequency.toString()
+        binding.mtvIanetFreq.text = "%.2f".format(InetAsd.frequency)
+        binding.mtvIbnetFreq.text = "%.2f".format(InetBsd.frequency)
+        binding.mtvIcnetFreq.text = "%.2f".format(InetCsd.frequency)
 
         // THD
-        binding.mtvIaobcThd.text = thd(fs, IobcAfft, harmonicsCnt).toString()
-        binding.mtvIbobcThd.text = thd(fs, IobcBfft, harmonicsCnt).toString()
-        binding.mtvIcobcThd.text = thd(fs, IobcCfft, harmonicsCnt).toString()
+        binding.mtvIaobcThd.text = "%.2f".format(thd(fs, IobcAfft, harmonicsCnt))
+        binding.mtvIbobcThd.text = "%.2f".format(thd(fs, IobcBfft, harmonicsCnt))
+        binding.mtvIcobcThd.text = "%.2f".format(thd(fs, IobcCfft, harmonicsCnt))
 
-        binding.mtvIanetThd.text = thd(fs, InetAfft, harmonicsCnt).toString()
-        binding.mtvIbnetThd.text = thd(fs, InetBfft, harmonicsCnt).toString()
-        binding.mtvIcnetThd.text = thd(fs, InetCfft, harmonicsCnt).toString()
+        binding.mtvIanetThd.text = "%.2f".format(thd(fs, InetAfft, harmonicsCnt))
+        binding.mtvIbnetThd.text = "%.2f".format(thd(fs, InetBfft, harmonicsCnt))
+        binding.mtvIcnetThd.text = "%.2f".format(thd(fs, InetCfft, harmonicsCnt))
 
         // Asymmetry
-        binding.mtvUaAsym.text = cosShiftToSin(Uasd.shift).toString()
-        binding.mtvUbAsym.text = cosShiftToSin(Ubsd.shift).toString()
-        binding.mtvUcAsym.text = cosShiftToSin(Ucsd.shift).toString()
+        binding.mtvUaAsym.text = "%.2f".format(cosShiftToSin(Uasd.shift))
+        binding.mtvUbAsym.text = "%.2f".format(cosShiftToSin(Ubsd.shift))
+        binding.mtvUcAsym.text = "%.2f".format(cosShiftToSin(Ucsd.shift))
 
         // Max value
-        binding.mtvUaMax.text = Ua.maxOrNull().toString()
-        binding.mtvUbMax.text = Ub.maxOrNull().toString()
-        binding.mtvUcMax.text = Uc.maxOrNull().toString()
+        binding.mtvUaMax.text = "%.2f".format(Ua.maxOrNull())
+        binding.mtvUbMax.text = "%.2f".format(Ub.maxOrNull())
+        binding.mtvUcMax.text = "%.2f".format(Uc.maxOrNull())
 
-        binding.mtvIaobcMax.text = IobcA.maxOrNull().toString()
-        binding.mtvIbobcMax.text = IobcB.maxOrNull().toString()
-        binding.mtvIcobcMax.text = IobcC.maxOrNull().toString()
+        binding.mtvIaobcMax.text = "%.2f".format(IobcA.maxOrNull())
+        binding.mtvIbobcMax.text = "%.2f".format(IobcB.maxOrNull())
+        binding.mtvIcobcMax.text = "%.2f".format(IobcC.maxOrNull())
 
-        binding.mtvIanetMax.text = InetA.maxOrNull().toString()
-        binding.mtvIbnetMax.text = InetB.maxOrNull().toString()
-        binding.mtvIcnetMax.text = InetC.maxOrNull().toString()
+        binding.mtvIanetMax.text = "%.2f".format(InetA.maxOrNull())
+        binding.mtvIbnetMax.text = "%.2f".format(InetB.maxOrNull())
+        binding.mtvIcnetMax.text = "%.2f".format(InetC.maxOrNull())
 
         // Power
         val ap =
@@ -138,9 +140,9 @@ class SignalAnalysisFragment : Fragment() {
                     Ubsd.amplitude * IobcBsd.amplitude * sin(cosShiftToSin(IobcBsd.shift)) +
                     Ucsd.amplitude * IobcCsd.amplitude * sin(cosShiftToSin(IobcCsd.shift))
 
-        binding.mtvActivePower.text = ap.toString()
-        binding.mtvApparentPower.text = appP.toString()
-        binding.mtvReactivePower.text = sqrt(ap * ap + appP * appP).toString()
+        binding.mtvActivePower.text = "%.2f".format(ap)
+        binding.mtvApparentPower.text = "%.2f".format(appP)
+        binding.mtvReactivePower.text = "%.2f".format(sqrt(ap * ap + appP * appP))
     }
 
 }

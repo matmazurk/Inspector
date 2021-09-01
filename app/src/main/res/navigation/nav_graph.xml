@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_connectionFragment_to_chartDetailsFragment"
             app:destination="@id/chartDetailsFragment" />
+        <action
+            android:id="@+id/action_connectionFragment_to_signalAnalysisFragment"
+            app:destination="@id/signalAnalysisFragment" />
     </fragment>
     <fragment
         android:id="@+id/chartDetailsFragment"
@@ -26,5 +29,17 @@
         <argument
             android:name="chart_name"
             app:argType="string" />
+        <argument
+            android:name="sampes_cnt"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/signalAnalysisFragment"
+        android:name="com.mat.inspector.SignalAnalysisFragment"
+        android:label="fragment_signal_analysis"
+        tools:layout="@layout/fragment_signal_analysis" >
+        <action
+            android:id="@+id/action_signalAnalysisFragment_to_connectionFragment"
+            app:destination="@id/connectionFragment" />
     </fragment>
 </navigation>

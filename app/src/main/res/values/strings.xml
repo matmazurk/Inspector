@@ -42,4 +42,7 @@
     <string name="active_power">Active power</string>
     <string name="reactive_power">Reactive power</string>
     <string name="apparent_power">Apparent power</string>
+    <string name="load_data_first">load data first</string>
+    <string name="samples_count">samples count</string>
+    <string name="samples_cnt_empty">samples count empty</string>
 </resources>

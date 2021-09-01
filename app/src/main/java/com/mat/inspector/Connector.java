@@ -12,8 +12,12 @@ import java.util.concurrent.TimeUnit;
 public class Connector {
     private final static String DB_TAG = "Connector";
     private static List<List<Double>> data;
+    private static boolean loaded = false;
     public static String ip;
     public static int port;
+    public static boolean loaded() {
+        return loaded;
+    }
 
     public static List<List<Double>> getData(){
         return data;
@@ -182,6 +186,7 @@ public class Connector {
             }
             data.add(l_tmpArray);
         }
+        loaded = true;
         return true;
     }
 

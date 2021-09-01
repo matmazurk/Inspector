@@ -28,11 +28,16 @@ class NewChartDialog : DialogFragment() {
         binding.btChartAccept.setOnClickListener {
             val name = binding.tietChartName.text.toString()
             val id = binding.tietChartNr.text.toString().toIntOrNull()
+            val samples = binding.tietChartSamples.text.toString().toIntOrNull()
             if(name.isNotEmpty()) {
                 if(id != null) {
-                    val chart = Configuration.Chart(name, id)
-                    configurationViewModel.addChart(requireActivity(), chart)
-                    dismiss()
+                    if (samples != null) {
+                        val chart = Configuration.Chart(name, id, samples)
+                        configurationViewModel.addChart(requireActivity(), chart)
+                        dismiss()
+                    } else {
+                        Toast.makeText(requireActivity(), getString(R.string.samples_cnt_empty), Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(requireActivity(), getString(R.string.wrong_id), Toast.LENGTH_SHORT).show()
                 }

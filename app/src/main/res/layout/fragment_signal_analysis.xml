@@ -78,7 +78,7 @@
                         android:id="@+id/mtv_uc_rms"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -120,7 +120,7 @@
                         android:id="@+id/mtv_icobc_rms"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -162,7 +162,7 @@
                         android:id="@+id/mtv_icnet_rms"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -211,7 +211,7 @@
                         android:id="@+id/mtv_uc_freq"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -253,7 +253,7 @@
                         android:id="@+id/mtv_icobc_freq"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -295,7 +295,7 @@
                         android:id="@+id/mtv_icnet_freq"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -344,7 +344,7 @@
                         android:id="@+id/mtv_icobc_thd"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -386,7 +386,7 @@
                         android:id="@+id/mtv_icnet_thd"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -435,7 +435,7 @@
                         android:id="@+id/mtv_uc_asym"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -484,7 +484,7 @@
                         android:id="@+id/mtv_uc_max"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -526,7 +526,7 @@
                         android:id="@+id/mtv_icobc_max"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -568,7 +568,7 @@
                         android:id="@+id/mtv_icnet_max"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -617,7 +617,7 @@
                         android:id="@+id/mtv_uc_ev"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 
@@ -659,7 +659,7 @@
                         android:id="@+id/mtv_icobc_ev"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start" />
 
                 </TableRow>
 
@@ -701,7 +701,7 @@
                         android:id="@+id/mtv_icnet_ev"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="end"/>
+                        android:gravity="start"/>
 
                 </TableRow>
 

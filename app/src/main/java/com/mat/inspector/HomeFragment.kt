@@ -1,6 +1,7 @@
 package com.mat.inspector
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -41,6 +42,7 @@ class HomeFragment : Fragment() {
             ConfigurationDialog().show(childFragmentManager, "configuration dialog")
         }
         binding.pager.adapter = PagerAdapter(this)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
         TabLayoutMediator(binding.tabs, binding.pager) { tab, position ->
             tab.text = slidingFragments[position].first
         }.attach()

@@ -94,6 +94,9 @@ class ParametersFragment : Fragment() {
                 }
             }
         }
+        adapter.clickedDel.observe(viewLifecycleOwner) {
+            configurationViewModel.removeParameter(requireActivity(), it)
+        }
         parametersViewModel.itemsToShow.observe(viewLifecycleOwner) { items ->
             adapter.setData(items)
         }

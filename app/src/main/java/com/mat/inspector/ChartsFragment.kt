@@ -39,6 +39,10 @@ class ChartsFragment : Fragment() {
             val conf = configurationViewModel.configuration
             viewModel.loadCharts(conf.serverAddress, conf.port)
         }
+        binding.fabChartsStats.setOnClickListener {
+            val action = HomeFragmentDirections.actionConnectionFragmentToSignalAnalysisFragment()
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 
@@ -51,9 +55,21 @@ class ChartsFragment : Fragment() {
             Toast.makeText(requireActivity(), getString(R.string.charts_loaded), Toast.LENGTH_SHORT).show()
         }
         adapter.clickedItem.observe(viewLifecycleOwner) {
-            val action = HomeFragmentDirections.actionConnectionFragmentToChartDetailsFragment(it.id, it.name)
+            if (!Connector.loaded()) {
+                Toast.makeText(requireActivity(), getString(R.string.load_data_first), Toast.LENGTH_SHORT).show()
+                return@observe
+            }
+            val action = HomeFragmentDirections.actionConnectionFragmentToChartDetailsFragment(it.id, it.name, it.samples)
             findNavController().navigate(action)
         }
+        adapter.clickedDel.observe(viewLifecycleOwner) {
+            configurationViewModel.removeChart(requireActivity(), it)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.fabChartsStats.visibility = if(!Connector.loaded()) View.INVISIBLE else View.VISIBLE
     }
 
     private fun info(msg: String) {

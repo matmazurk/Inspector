@@ -4,16 +4,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 
 class ParametersAdapter : RecyclerView.Adapter<ParametersAdapter.ViewHolder>() {
 
     private var data: List<ParametersViewModel.ParameterWithValue> = emptyList()
     private val _clickedItem: MutableLiveData<Int> = MutableLiveData()
+    private val _clickedDelBt: MutableLiveData<Int> = MutableLiveData()
     val clickedItem: LiveData<Int> get() = _clickedItem
+    val clickedDel: LiveData<Int> get() = _clickedDelBt
 
     fun setData(data: List<ParametersViewModel.ParameterWithValue>) {
         this.data = data
@@ -34,15 +38,19 @@ class ParametersAdapter : RecyclerView.Adapter<ParametersAdapter.ViewHolder>() {
         holder.layout.setOnClickListener {
             _clickedItem.postValue(position)
         }
+        holder.bt.setOnClickListener {
+            _clickedDelBt.postValue(position)
+        }
     }
 
     override fun getItemCount(): Int = data.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val layout: LinearLayout = view.findViewById(R.id.rv_parameters_item_layout)
+        val layout: ConstraintLayout = view.findViewById(R.id.rv_parameters_item_layout)
         val paramName: MaterialTextView = view.findViewById(R.id.rv_parameters_item_title)
         val paramType: MaterialTextView = view.findViewById(R.id.rv_parameters_item_type)
         val paramValue: MaterialTextView = view.findViewById(R.id.rv_parameters_item_value)
+        val bt: MaterialButton = view.findViewById(R.id.bt_param_delete)
     }
 
 }

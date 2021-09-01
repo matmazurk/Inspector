@@ -32,6 +32,7 @@ data class Configuration(
 
     data class Chart(
         val name: String,
-        val id: Int
+        val id: Int,
+        val samples: Int
     )
 }
