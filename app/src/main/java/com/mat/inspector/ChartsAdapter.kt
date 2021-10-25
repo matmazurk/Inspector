@@ -11,13 +11,13 @@ import com.google.android.material.textview.MaterialTextView
 
 class ChartsAdapter : RecyclerView.Adapter<ChartsAdapter.ViewHolder>() {
 
-    private val _clickedItem: MutableLiveData<Configuration.Chart> = MutableLiveData()
-    val clickedItem: LiveData<Configuration.Chart> = _clickedItem
-    private val _clickedDelBt: MutableLiveData<Configuration.Chart> = MutableLiveData()
-    val clickedDel: LiveData<Configuration.Chart> get() = _clickedDelBt
-    private var data: List<Configuration.Chart> = emptyList()
+    private val _clickedItem: MutableLiveData<Chart> = MutableLiveData()
+    val clickedItem: LiveData<Chart> = _clickedItem
+    private val _clickedDelBt: MutableLiveData<Chart> = MutableLiveData()
+    val clickedDel: LiveData<Chart> get() = _clickedDelBt
+    private var data: List<Chart> = emptyList()
 
-    fun setData(data: List<Configuration.Chart>) {
+    fun setData(data: List<Chart>) {
         this.data = data
         notifyDataSetChanged()
     }

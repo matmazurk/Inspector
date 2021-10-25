@@ -24,14 +24,8 @@
             android:id="@+id/action_chartDetailsFragment_to_connectionFragment"
             app:destination="@id/connectionFragment" />
         <argument
-            android:name="chart_id"
-            app:argType="integer" />
-        <argument
-            android:name="chart_name"
-            app:argType="string" />
-        <argument
-            android:name="sampes_cnt"
-            app:argType="integer" />
+            android:name="chart"
+            app:argType="com.mat.inspector.Chart"/>
     </fragment>
     <fragment
         android:id="@+id/signalAnalysisFragment"

@@ -26,17 +26,31 @@ class ParametersViewModel(
     val connError: LiveData<String> get() = _connError
 
     fun handleConfigurationChange(config: Configuration) {
+
         if (config.parameters != parameters) {
             viewModelScope.launch(Dispatchers.IO) {
             val items = fetchValuesForParams(config.parameters, config.serverAddress, config.port)
-            _itemsToShow.postValue(items)
+            if (items.isEmpty()) {
+                _itemsToShow.postValue(config.parameters.map {
+                    ParameterWithValue(it, 0.0)
+                })
+            } else {
+                _itemsToShow.postValue(items)
+            }
             parameters = config.parameters
             }
         }
     }
 
     fun reloadValues(serverAddress: InetAddress, port: Int) = viewModelScope.launch(Dispatchers.IO) {
-        _itemsToShow.postValue(fetchValuesForParams(parameters, serverAddress, port))
+        val items = fetchValuesForParams(parameters, serverAddress, port)
+        if (items.isEmpty()) {
+            _itemsToShow.postValue(parameters.map {
+                ParameterWithValue(it, 0.0)
+            })
+        } else {
+            _itemsToShow.postValue(items)
+        }
     }
 
     fun writeDouble(serverAddress: InetAddress, port: Int, offset: Int, value: Double) = viewModelScope.launch(Dispatchers.IO) {

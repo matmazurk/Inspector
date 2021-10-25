@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.425" />
+        <entry key="app/src/main/res/drawable/customborder.xml" value="0.24739583333333334" />
+        <entry key="app/src/main/res/layout/dialog_new_chart.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/dialog_new_parameter.xml" value="0.22760416666666666" />
+        <entry key="app/src/main/res/layout/fragment_chart_details.xml" value="0.3029891304347826" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

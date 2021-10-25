@@ -1,14 +1,14 @@
 package com.mat.inspector
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
@@ -18,10 +18,7 @@ import com.mat.inspector.databinding.FragmentParametersBinding
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.IOException
 import java.net.InetAddress
-import java.net.InetSocketAddress
-import java.net.Socket
 
 class ParametersFragment : Fragment() {
     private lateinit var binding: FragmentParametersBinding
@@ -49,8 +46,7 @@ class ParametersFragment : Fragment() {
                 }
             }
         }
-        adapter.clickedItem.observe(viewLifecycleOwner) { position ->
-            val param = configurationViewModel.configuration.parameters[position]
+        adapter.clickedItem.observe(viewLifecycleOwner) { param ->
             if (param.isWritable()) {
                 MaterialDialog(requireActivity()).show {
                     var type = InputType.TYPE_CLASS_NUMBER
@@ -109,6 +105,9 @@ class ParametersFragment : Fragment() {
         super.onResume()
         val currentConfig = configurationViewModel.configuration
         startValuesChangeWatcher(currentConfig.serverAddress, currentConfig.port)
+        requireActivity().window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        )
     }
 
     override fun onPause() {
@@ -144,7 +143,7 @@ class ParametersFragment : Fragment() {
 
     companion object {
         private const val TAG = "PARAMETERS FRAGMENT"
-        private const val VALUES_CHANGE_WATCHER_INTERVAL_MS = 10_000L
+        private const val VALUES_CHANGE_WATCHER_INTERVAL_MS = 5_000L
     }
 
 }

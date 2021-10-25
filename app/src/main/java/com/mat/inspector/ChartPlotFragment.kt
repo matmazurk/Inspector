@@ -22,6 +22,7 @@ import kotlin.random.Random
 
 class ChartPlotFragment : Fragment() {
 
+    @Suppress("MemberVisibilityCanBePrivate")
     val args: ChartPlotFragmentArgs by navArgs()
     private lateinit var binding: FragmentChartDetailsBinding
 
@@ -42,12 +43,8 @@ class ChartPlotFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback);
-        val data = Connector.getData()[args.chartId]
-        val startingTime = Connector.getData()[63][0]
-        val timeShifted = Connector.getData()[63].map {
-            (it - startingTime) * 1000
-        }
-        loadChart(timeShifted, data, args.sampesCnt, args.chartName)
+        loadChart(args.chart)
+        binding.tvChartTitle.text = args.chart.name
     }
 
     private fun getEntries(xs: List<Double>, ys: List<Double>, samples: Int): List<Entry> {
@@ -57,15 +54,26 @@ class ChartPlotFragment : Fragment() {
         }
     }
 
-    private fun loadChart(xs: List<Double>, ys: List<Double>, samples: Int, title: String) {
-        val lineDataSet = LineDataSet(getEntries(xs, ys, samples), title).apply {
-            setCircleColor(getRandomColor())
+    private fun getDataSet(xs: List<Double>, ys: List<Double>, samples: Int, title: String): LineDataSet {
+        return LineDataSet(getEntries(xs, ys, samples), title).apply {
+            val c = getRandomColor()
+            setCircleColor(c)
             setDrawCircleHole(false)
-            color = getRandomColor()
+            color = c
             circleRadius = 1.5f
         }
-        val lineData = LineData().apply {
-            addDataSet(lineDataSet)
+    }
+
+    private fun loadChart(chart: Chart) {
+        val lineData = LineData()
+        val samplesPerOnePlot = chart.samples / chart.plots.size
+        chart.plots.forEach { (title, id) ->
+            val data = Connector.getData()[id]
+            val startingTime = Connector.getData()[63][0]
+            val timeShifted = Connector.getData()[63].map {
+                (it - startingTime) * 1000
+            }
+            lineData.addDataSet(getDataSet(timeShifted, data, samplesPerOnePlot, title))
         }
         binding.lineChart.apply {
             axisLeft.apply {

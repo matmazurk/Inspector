@@ -1,12 +1,16 @@
 package com.mat.inspector
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,7 +63,7 @@ class ChartsFragment : Fragment() {
                 Toast.makeText(requireActivity(), getString(R.string.load_data_first), Toast.LENGTH_SHORT).show()
                 return@observe
             }
-            val action = HomeFragmentDirections.actionConnectionFragmentToChartDetailsFragment(it.id, it.name, it.samples)
+            val action = HomeFragmentDirections.actionConnectionFragmentToChartDetailsFragment(it) //asd
             findNavController().navigate(action)
         }
         adapter.clickedDel.observe(viewLifecycleOwner) {
@@ -70,6 +74,9 @@ class ChartsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.fabChartsStats.visibility = if(!Connector.loaded()) View.INVISIBLE else View.VISIBLE
+        requireActivity().window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        )
     }
 
     private fun info(msg: String) {

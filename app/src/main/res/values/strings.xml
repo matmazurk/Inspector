@@ -45,4 +45,13 @@
     <string name="load_data_first">load data first</string>
     <string name="samples_count">samples count</string>
     <string name="samples_cnt_empty">samples count empty</string>
+    <string name="plot_title">plot title</string>
+    <string name="plot_number">plot number</string>
+    <string name="plot_title_empty">plot title is empty</string>
+    <string name="wrong_plot_id">wrong plot id</string>
+    <string name="chart_title_empty">chart title empty</string>
+    <string name="index">index</string>
+    <string name="title">title</string>
+    <string name="plot_data">Plot data</string>
+    <string name="empty_plots">chart must have at least one plot</string>
 </resources>

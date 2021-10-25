@@ -1,10 +1,13 @@
 package com.mat.inspector
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
 import com.google.gson.annotations.JsonAdapter
+import kotlinx.android.parcel.Parcelize
 import java.lang.reflect.Type
 import java.net.Inet4Address
 import java.net.InetAddress
@@ -29,10 +32,4 @@ data class Configuration(
     ) {
         fun isWritable() = min != null && max != null
     }
-
-    data class Chart(
-        val name: String,
-        val id: Int,
-        val samples: Int
-    )
 }

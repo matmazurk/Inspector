@@ -64,15 +64,15 @@ class ConfigurationViewModel(
         return fileHandler.createNewFile(configFilePath, gson.toJson(configuration))
     }
 
-    fun removeParameter(context: Context, index: Int): Boolean {
+    fun removeParameter(context: Context, param: Configuration.Parameter): Boolean {
         val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
         val parameters = configuration.parameters.toMutableList()
-        parameters.removeAt(index)
+        parameters.remove(param)
         changeConfiguration(configuration.copy(parameters = parameters))
         return fileHandler.createNewFile(configFilePath, gson.toJson(configuration))
     }
 
-    fun addChart(context: Context, chart: Configuration.Chart): Boolean {
+    fun addChart(context: Context, chart: Chart): Boolean {
         val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
         val charts = configuration.charts.toMutableList()
         charts.add(chart)
@@ -80,7 +80,7 @@ class ConfigurationViewModel(
         return fileHandler.createNewFile(configFilePath, gson.toJson(configuration))
     }
 
-    fun removeChart(context: Context, chart: Configuration.Chart): Boolean {
+    fun removeChart(context: Context, chart: Chart): Boolean {
         val configFilePath = "${context.filesDir}/${CONFIGURATION_FILE_NAME}"
         val charts = configuration.charts.toMutableList()
         charts.remove(chart)

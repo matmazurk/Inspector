@@ -14,10 +14,10 @@ import com.google.android.material.textview.MaterialTextView
 class ParametersAdapter : RecyclerView.Adapter<ParametersAdapter.ViewHolder>() {
 
     private var data: List<ParametersViewModel.ParameterWithValue> = emptyList()
-    private val _clickedItem: MutableLiveData<Int> = MutableLiveData()
-    private val _clickedDelBt: MutableLiveData<Int> = MutableLiveData()
-    val clickedItem: LiveData<Int> get() = _clickedItem
-    val clickedDel: LiveData<Int> get() = _clickedDelBt
+    private val _clickedItem: MutableLiveData<Configuration.Parameter> = MutableLiveData()
+    private val _clickedDelBt: MutableLiveData<Configuration.Parameter> = MutableLiveData()
+    val clickedItem: LiveData<Configuration.Parameter> get() = _clickedItem
+    val clickedDel: LiveData<Configuration.Parameter> get() = _clickedDelBt
 
     fun setData(data: List<ParametersViewModel.ParameterWithValue>) {
         this.data = data
@@ -36,10 +36,10 @@ class ParametersAdapter : RecyclerView.Adapter<ParametersAdapter.ViewHolder>() {
         holder.paramType.text = if(parameter.isWritable()) "${parameter.type}(W)" else parameter.type.toString()
         holder.paramValue.text = if(parameter.type == Configuration.Type.UINT) value.toInt().toString() else value.toString()
         holder.layout.setOnClickListener {
-            _clickedItem.postValue(position)
+            _clickedItem.postValue(parameter)
         }
         holder.bt.setOnClickListener {
-            _clickedDelBt.postValue(position)
+            _clickedDelBt.postValue(parameter)
         }
     }
 
